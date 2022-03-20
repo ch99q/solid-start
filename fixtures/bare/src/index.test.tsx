@@ -21,7 +21,9 @@ if (process.env.TEST_ENV === "client" && process.env.TEST_MODE === "client-serve
   // tests that the client-server interaction is correct
   // wires the client side Request to the server side handler and parses the Response on the way back
   let mock = vi.spyOn(server, "fetcher");
-  mock.mockImplementation(request => handleServerRequest(request));
+  mock.mockImplementation(request =>
+    handleServerRequest({ request, responseHeaders: new Headers(), manifest: {} })
+  );
 }
 
 // tests that the client is sending the correct http request and parsing the http respose correctly,
